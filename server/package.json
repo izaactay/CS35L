@@ -1,0 +1,27 @@
+{
+  "name": "cs35l",
+  "version": "1.0.0",
+  "description": "Project for CS35L",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/izaactay/CS35L.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/izaactay/CS35L/issues"
+  },
+  "homepage": "https://github.com/izaactay/CS35L#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
