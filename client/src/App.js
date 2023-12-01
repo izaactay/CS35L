@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { supabase } from './lib/helper/supabaseClient';
+import { supabase } from './supabaseClient';
 import WishlistForm from './components/WishlistForm';
+
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -10,6 +11,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      // console.log(session)
       setSession(session);
 
       // Store the access token locally when the session is available

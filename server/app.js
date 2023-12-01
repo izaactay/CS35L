@@ -1,14 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const supabaseServer = require('./supabaseServer');
 const supabase = supabaseServer.supabase;
-
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
 const PORT = 3001;
-const JWT_SECRET = 'sJc9VtqYvylDhMTN74TsJHjcZ3FJ8cCqRBF5HYciRVDusulNxFqsrCITUAUDDReu3z3ZkuFZwmYESHUYSASEXw==';
 
 app.use(express.json());
 
@@ -28,7 +28,7 @@ const authenticateToken = (req, res, next) => {
       console.log('Forbidden - Invalid token');
       return res.status(403).json({ error: 'Forbidden - Invalid token' });
     }
-    // const decoded = jwt.decode(token);
+    // console.log(decoded)
     req.user = decoded.sub;
     next();
   });
@@ -37,8 +37,6 @@ const authenticateToken = (req, res, next) => {
 // Apply the authentication middleware to the route
 app.post('/add-to-wishlist', authenticateToken, async (req, res) => {
   try {
-    const userId = req.user; // Assuming req.user contains the user ID
-    const { item } = req.body;
     // Check if user exists in the user table
     const { data: userData, error: userError } = await supabase.auth.getUser(req.header('Authorization'))
     if (userError || !userData) {
@@ -49,11 +47,14 @@ app.post('/add-to-wishlist', authenticateToken, async (req, res) => {
     if (userData.user.aud !== 'authenticated') {
       console.error('User is not authenticated');
       return res.status(401).json({ error: 'User is not authenticated' });
-}
+    }
     // Perform Supabase insert in wishlist table
+    const userId = req.user;
+    const { item } = req.body; 
+    console.log('im here');
     const { data, error } = await supabase
       .from('wishlist')
-      .insert([{ userId: userId, item, created_at: new Date() }]);
+      .insert([{ userId: userId, item }]);
 
     if (error) {
       console.error('Error updating Supabase data:', error);
