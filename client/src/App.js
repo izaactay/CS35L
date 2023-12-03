@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { supabase } from './supabaseClient';
+import WishlistForm from './components/WishlistForm';
 
-function App() {
+
+export default function App() {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      // console.log(session)
+      setSession(session);
+
+      // Store the access token locally when the session is available
+      if (session) {
+        localStorage.setItem('supabaseToken', session.access_token);
+      }
+    };
+
+    fetchData();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+
+      // Store the access token locally when the session is available
+      if (session) {
+        localStorage.setItem('supabaseToken', session.access_token);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {session ? (
+        // User is logged in, show the wishlist form
+        <WishlistForm />
+      ) : (
+        // User is not logged in, show the authentication UI
+        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+      )}
     </div>
   );
 }
-
-export default App;
