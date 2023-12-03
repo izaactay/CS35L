@@ -1,58 +1,39 @@
 <<<<<<< Updated upstream
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+// const bodyParser = require('body-parser');
 const cors = require('cors');
-const supabaseServer = require('./supabaseServer');
-const supabase = supabaseServer.supabase;
-const JWT_SECRET = process.env.JWT_SECRET;
-
 const app = express();
-const PORT = 3001;
 
 app.use(express.json());
 
 // Use cors middleware to enable CORS
 app.use(cors());
 
-// Middleware to verify the JWT token
-const authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) {
-    console.log('Unauthorized - Token not provided');
-    return res.status(401).json({ error: 'Unauthorized - Token not provided' });
-  }
+// Supabase client
+const { supabase, verifyUser } = require('./modules/supabaseServer');
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) {
-      console.log('Forbidden - Invalid token');
-      return res.status(403).json({ error: 'Forbidden - Invalid token' });
-    }
-    // console.log(decoded)
-    req.user = decoded.sub;
-    next();
-  });
-};
+
+// Routers
+app.use('/items', require('./routes/items'));
+app.use('/userList', require('./routes/userList'));
+app.use('/userFavouriteItems', require('./routes/userFavouriteItems'));
+
+const token = require('./modules/token')
+
+const PORT = 3001;
 
 // Apply the authentication middleware to the route
-app.post('/add-to-wishlist', authenticateToken, async (req, res) => {
+app.post('/add-to-wishlist', token.authenticate, async (req, res) => {
   try {
-    // Check if user exists in the user table
-    const { data: userData, error: userError } = await supabase.auth.getUser(req.header('Authorization'))
-    if (userError || !userData) {
-      console.error('User not found:', userError);
-      return res.status(404).json({ error: 'User not found' });
-    }
-    // Check if user 'aud' is 'authenticated'
-    if (userData.user.aud !== 'authenticated') {
-      console.error('User is not authenticated');
-      return res.status(401).json({ error: 'User is not authenticated' });
-    }
     // Perform Supabase insert in wishlist table
+    const verifyResult = await verifyUser(req.header('Authorization'));
+    if (verifyResult !== 0) {
+      return res.status(verifyResult.status).json({ error: verifyResult.error });
+    };
+
     const userId = req.user;
-    const { item } = req.body; 
-    console.log('im here');
+    const { item } = req.body;
     const { data, error } = await supabase
       .from('wishlist')
       .insert([{ userId: userId, item }]);
@@ -63,7 +44,8 @@ app.post('/add-to-wishlist', authenticateToken, async (req, res) => {
     }
 
     console.log('Wishlist item added successfully:', data);
-    res.json({ success: true, data });
+    res.status(200).json({ success: true, data });
+
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
