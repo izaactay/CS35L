@@ -33,5 +33,4 @@ async function testConnection() {
     c.done(); // success, release connection
 }
 
-testConnection();
-module.exports = db;
+module.exports = { db, testConnection };
