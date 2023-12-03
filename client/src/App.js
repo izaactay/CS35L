@@ -6,6 +6,7 @@ import { supabase } from './supabaseClient';
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import WishlistForm from './components/WishlistForm';
+import Home from './Pages/Home';
 
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <div className="App">
     <main>
+    <Home></Home>
       <Routes>
           // User is logged in, show the wishlist form
           <Route path="/wishlist" element={<WishlistForm />} />

@@ -42,6 +42,12 @@ function Login(props) {
         <Auth
           supabaseClient={props.supabase}
           appearance={{ theme: ThemeSupa }}
+          providers={['google', 'github', 'facebook']}
+          view="sign_up"
+        />
+                <Auth
+          supabaseClient={props.supabase}
+          appearance={{ theme: ThemeSupa }}
           view="sign_up"
         />
       </div>
