@@ -34,6 +34,9 @@ export default function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  const [loggedIn, setLoggedIn] = useState(false);
+  console.log("Logged in: ", loggedIn);
+
   return (
     <div>
       {session ? (
