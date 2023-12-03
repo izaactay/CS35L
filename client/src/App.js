@@ -1,51 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from './supabaseClient';
+import Login from "./components/Login/Login";
+import Signup from "./components/Signup/Signup";
 import WishlistForm from './components/WishlistForm';
 
 
 export default function App() {
   const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      // console.log(session)
-      setSession(session);
-
-      // Store the access token locally when the session is available
-      if (session) {
-        localStorage.setItem('supabaseToken', session.access_token);
-      }
-    };
-
-    fetchData();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-
-      // Store the access token locally when the session is available
-      if (session) {
-        localStorage.setItem('supabaseToken', session.access_token);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const [loggedIn, setLoggedIn] = useState(false);
-  console.log("Logged in: ", loggedIn);
-
   return (
-    <div>
-      {session ? (
-        // User is logged in, show the wishlist form
-        <WishlistForm />
-      ) : (
-        // User is not logged in, show the authentication UI
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
-      )}
-    </div>
-  );
+    <div className="App">
+    <main>
+      <Routes>
+          // User is logged in, show the wishlist form
+          <Route path="/wishlist" element={<WishlistForm />} />
+
+          // User is not logged in, show the login route
+          <Route path="/login" element={<Login session={session} setSession={setSession} supabase={supabase}/>} />
+
+          <Route path="/signup" element={<Signup session={session} setSession={setSession} supabase={supabase}/>} />
+      </Routes>
+    </main>
+
+  </div>
+);
 }
