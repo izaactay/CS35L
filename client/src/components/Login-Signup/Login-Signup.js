@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import "./Login.css";
+import "./Login-Signup.css";
 
 function Login(props) {
 
@@ -43,11 +43,6 @@ function Login(props) {
           supabaseClient={props.supabase}
           appearance={{ theme: ThemeSupa }}
           providers={['google', 'github', 'facebook']}
-          view="sign_up"
-        />
-                <Auth
-          supabaseClient={props.supabase}
-          appearance={{ theme: ThemeSupa }}
           view="sign_up"
         />
       </div>
