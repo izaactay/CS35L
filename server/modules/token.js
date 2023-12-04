@@ -4,7 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware to verify the JWT token
 const authenticate = (req, res, next) => {
-  const token = req.header('Authorization');
+  const token = req.header('Authorization').split(' ').pop();
   if (!token) {
     console.log('Unauthorized - Token not provided');
     return res.status(401).json({ error: 'Unauthorized - Token not provided' });

@@ -10,25 +10,50 @@ const supabase = createClient(
   SUPABASE_ANON_KEY,
 );
 
-const verifyUser = async (authHeader) => {
-  // Check if user exists in the user table
-  const { data: userData, error: userError } = await supabase.auth.getUser(authHeader);
+// User verification middleware
+const verifyUser = async (req, res, next) => {
+  try {
 
-  if (userError || !userData) {
-    return {
-      status: 404,
-      error: 'User not found: '.concat(userError)
+    // Check if user exists in the user table
+    const { data: userData, error: userError } = await supabase.auth.getUser(req.header('Authorization').split(' ').pop());
+    if (userError || !userData) {
+      return res.status(404).json({
+        error: 'User not found: '.concat(userError)
+      });
     };
-  };
 
-  // Check if user 'aud' is 'authenticated'
-  if (userData.user.aud !== 'authenticated') {
-    return {
-      status: 401,
-      error: 'User is not authenticated'
+    // Check if user 'aud' is 'authenticated'
+    if (userData.user.aud !== 'authenticated') {
+      return res.status(401).json({
+        error: 'User is not authenticated'
+      })
     };
+
+    next();
+
+  } catch (error) {
+
+    console.error('Error:', error);
+
+    res.status(500).json({
+      error: 'Internal Server Error'
+    });
+
   };
-  return 0;
 };
 
-module.exports = { supabase, verifyUser };
+// Get data from table
+const getUserList = async (table, userID) => {
+  const { data, error } = await supabase
+    .from(table)
+    .select()
+    .eq('user_id', userID);
+
+  if (error) {
+    throw error;
+  } else {
+    return data;
+  };
+}
+
+module.exports = { supabase, verifyUser, getUserList };

@@ -1,41 +1,34 @@
 require('dotenv').config();
 const express = require('express');
-// const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-
-app.use(express.json());
-
-// Use cors middleware to enable CORS
-app.use(cors());
-
-// Supabase client
 const { supabase, verifyUser } = require('./modules/supabaseServer');
+const token = require('./modules/token');
 
+// Middleware
+app.use(express.json());
+app.use(cors());
 
 // Routers
 app.use('/items', require('./routes/items'));
 app.use('/userList', require('./routes/userList'));
 app.use('/userFavouriteItems', require('./routes/userFavouriteItems'));
 
-const token = require('./modules/token')
-
 const PORT = 3001;
 
-// Apply the authentication middleware to the route
-app.post('/add-to-wishlist', token.authenticate, async (req, res) => {
-  try {
-    // Perform Supabase insert in wishlist table
-    const verifyResult = await verifyUser(req.header('Authorization'));
-    if (verifyResult !== 0) {
-      return res.status(verifyResult.status).json({ error: verifyResult.error });
-    };
+app.use(token.authenticate);
+app.use(verifyUser);
 
+// Apply the authentication middleware to the route
+app.post('/add-to-wishlist', async (req, res) => {
+  try {
     const userId = req.user;
     const { item } = req.body;
+
+    // Perform Supabase insert in wishlist table
     const { data, error } = await supabase
       .from('wishlist')
-      .insert([{ userId: userId, item }]);
+      .insert([{ userId, item }]);
 
     if (error) {
       console.error('Error updating Supabase data:', error);
