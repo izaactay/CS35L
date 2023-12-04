@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../modules/token');
-const { verifyUser, getUserList, supabase } = require('../modules/supabaseServer');
+const { verifyUser, getUserList, supabase, toItems } = require('../modules/supabaseServer');
 
 // middleware
 router.use(authenticate);
@@ -13,13 +13,7 @@ router.get('/', async (req, res) => {
     const data = await getUserList('UserList', req.user);
 
     // Resolve each item in list to its entry in database
-    const mapped = await Promise.all(data.map(async (data) => {
-      const { data: itemData } = await supabase
-        .from('Items').select()
-        .eq('id', data.item_id);
-      return itemData[0];
-    }));
-
+    const mapped = await toItems(data);
     res.status(200).json(mapped);
 
   } catch (error) {
@@ -32,6 +26,32 @@ router.post('/', (req, res) => {
   res.status(200).json({
     data: 'post shopping cart'
   });
+});
+
+router.put('/add', async (req, res) => {
+  const ids = getItemIDsFromBody(req.body);
+  for (const id of ids) {
+    await sb.insertRelation('UserList', id, req.user);
+  };
+  // Get foreignkey list
+  const data = await sb.getUserList('UserList', req.user);
+
+  // Resolve each item in list to its entry in database
+  const mapped = await sb.toItems(data);
+  res.status(200).json(mapped);
+});
+
+router.put('/remove', async (req, res) => {
+  const ids = getItemIDsFromBody(req.body);
+  for (const id of ids) {
+    await sb.removeRelation('UserList', id, req.user);
+  };
+  // Get foreignkey list
+  const data = await sb.getUserList('UserList', req.user);
+
+  // Resolve each item in list to its entry in database
+  const mapped = await sb.toItems(data);
+  res.status(200).json(mapped);
 });
 
 module.exports = router;

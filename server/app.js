@@ -6,8 +6,8 @@ const { supabase, verifyUser } = require('./modules/supabaseServer');
 const token = require('./modules/token');
 
 // Middleware
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 // Routers
 app.use('/items', require('./routes/items'));

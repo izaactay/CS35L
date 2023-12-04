@@ -5,8 +5,8 @@ const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
 // Create a single supabase client for interacting with your database
-const supabase = createClient(
-  SUPABASE_URL, 
+const client = createClient(
+  SUPABASE_URL,
   SUPABASE_ANON_KEY,
 );
 
@@ -15,7 +15,9 @@ const verifyUser = async (req, res, next) => {
   try {
 
     // Check if user exists in the user table
-    const { data: userData, error: userError } = await supabase.auth.getUser(req.header('Authorization').split(' ').pop());
+    const { data: userData, error: userError } = await client
+      .auth.getUser(req.header('Authorization').split(' ').pop());
+
     if (userError || !userData) {
       return res.status(404).json({
         error: 'User not found: '.concat(userError)
@@ -44,7 +46,7 @@ const verifyUser = async (req, res, next) => {
 
 // Get data from table
 const getUserList = async (table, userID) => {
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from(table)
     .select()
     .eq('user_id', userID);
@@ -54,6 +56,52 @@ const getUserList = async (table, userID) => {
   } else {
     return data;
   };
-}
+};
 
-module.exports = { supabase, verifyUser, getUserList };
+// Get items from database
+const toItems = async (data) => {
+  return await Promise.all(data.map(async (data) => {
+    const { data: itemData } = await client
+      .from('Items').select()
+      .eq('id', data.item_id);
+    return itemData[0];
+  }));
+};
+
+// Attempt insert relation to table
+const insertRelation = async (table, itemID, userID) => {
+  let { data, error } = await client
+    .from('Items')
+    .select()
+    .eq('id', itemID);
+  if (data.length === 0) {
+    // item does not exist
+  };
+  ({ data, error } = await client
+    .from(table)
+    .select()
+    .eq('user_id', userID)
+    .eq('item_id', itemID));
+  if (data.length === 0) {
+    // relation does not exist
+    ({ data, error } = await client
+      .from(table)
+      .insert({
+        item_id: itemID,
+        user_id: userID
+      }));
+    return data;
+  }
+  
+};
+
+// Attempt remove relation from table
+const removeRelation = async (table, itemID, userID) => {
+  let { error } = await client
+    .from(table)
+    .delete()
+    .eq('user_id', userID)
+    .eq('item_id', itemID);
+};
+
+module.exports = { client, verifyUser, getUserList, toItems, insertRelation, removeRelation };
