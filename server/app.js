@@ -78,12 +78,12 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const { supabase, verifyUser } = require('./modules/supabaseServer');
+const { supabase, verifyUser } = require('./modules/supabase');
 const token = require('./modules/token');
 
 // Middleware
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 // Routers
 app.use('/items', require('./routes/items'));
