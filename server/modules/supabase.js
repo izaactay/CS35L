@@ -62,7 +62,8 @@ const getUserList = async (table, userID) => {
 const toItems = async (data) => {
   return await Promise.all(data.map(async (data) => {
     const { data: itemData } = await client
-      .from('Items').select()
+      .from('Items')
+      .select('id, name, shop, curr_price, price_type, img, query')
       .eq('id', data.item_id);
     return itemData[0];
   }));

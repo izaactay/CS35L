@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { supabase } = require('../modules/supabase');
+const sb = require('../modules/supabase');
 // middleware
 
 router.get('/:itemID', async (req, res) => {
@@ -21,16 +21,22 @@ router.get('/:itemID', async (req, res) => {
 });
 
 
+
+
+
 router.get('/search/:query', async (req, res) => {
 
   const search_query = req.params.query;
   
 
     
-  const{ data, error } = await supabase.from('Items').select().textSearch('name',search_query, {
-    type: 'websearch',
-    config: 'english'
-  });
+  const{ data, error } = await sb.client
+    .from('Items')
+    .select('id, name, shop, curr_price, price_type, img, query')
+    .textSearch('search',search_query, {
+      type: 'websearch',
+      config: 'english'
+    });
 
   if (error) {
     console.error('Error searching Supabase data:', error);
@@ -40,9 +46,9 @@ router.get('/search/:query', async (req, res) => {
     
   }
   else {
-    res.status(200).json({
+    res.status(200).json(
       data
-    });
+    );
   }
 
   
