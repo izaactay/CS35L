@@ -17,30 +17,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 400, 
-          backgroundImage: 'url("https://cdn.pixabay.com/photo/2022/12/21/12/33/orange-7669963_1280.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      >
-        <Typography variant="h4" color="white" gutterBottom>
-          Welcome to Grocery+
-        </Typography>
-        <Typography variant="subtitle2" color="black" gutterBottom>
-          Shop Smarter, Not Harder: Make informed choices, save money, and time!
-        </Typography>
-      </Box>
-
         {/* Display Items Section */}
         <Container sx={{ marginTop: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Browse Items
+          Favorites
         </Typography>
         <Grid container spacing={3}>
           {items.map(item => (
