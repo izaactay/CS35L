@@ -22,9 +22,9 @@ const NavBar = () => (
                 
                     <TextField label="Search" variant="outlined" size="small" sx={{ mr: 2 }} />
                     
-                    <IconButton color="black" component={Link} to="/favourites" ><Favorite /></IconButton>
+                    <IconButton color="black" component={Link} to="/favorites" ><Favorite /></IconButton>
                     <IconButton color="black" component={Link} to="/cart"><ShoppingCart /></IconButton>
-                    <IconButton color="black" component={Link} to="/favourites"><AccountCircle /></IconButton>
+                    <IconButton color="black" component={Link} to="/favorites"><AccountCircle /></IconButton>
                 </Toolbar>
         </AppBar>
     </div>

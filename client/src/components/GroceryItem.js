@@ -1,10 +1,11 @@
 import React from 'react';
-import {Card, CardContent, CardMedia, Typography, IconButton} from '@mui/material';
+import { Link } from 'react-router-dom';
+import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
 import { Favorite, Delete } from '@mui/icons-material';
 
 const GroceryItem = ({ item }) => (
     <Button sx={{ width: '25%' }} component={Link} to="/item">
-      <Card>
+      <Card sx={{ width: '100%' }}>
         <CardMedia
           component="img"
           height="140"

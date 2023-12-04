@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { AppBar, Box, Toolbar, Typography, IconButton, TextField, Grid, Card, CardContent, CardMedia, Container } from '@mui/material';
 import GroceryItem from '../components/GroceryItem'
 
-const HomePage = () => {
+const Cart= () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const HomePage = () => {
         <Typography variant="h5" gutterBottom>
           Shopping Cart
         </Typography>
-        <Grid container spacing={3}>
+        <Grid sx={{ marginTop: 4 }} container spacing={3}>
           {items.map(item => (
             <GroceryItem key={item.id} item={item} />
           ))}
@@ -34,4 +34,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Cart;
