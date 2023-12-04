@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const { supabase, verifyUser } = require('./modules/supabaseServer');
+const { supabase, verifyUser } = require('./modules/supabase');
 const token = require('./modules/token');
 
 // Middleware

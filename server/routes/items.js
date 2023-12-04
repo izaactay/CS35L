@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { supabase } = require('../modules/supabaseServer');
+const { supabase } = require('../modules/supabase');
 // middleware
 
 router.get('/:itemID', async (req, res) => {

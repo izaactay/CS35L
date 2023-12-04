@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../modules/token');
-const { verifyUser, getUserList, supabase, toItems } = require('../modules/supabaseServer');
+const sb = require('../modules/supabase');
+const { getItemIDsFromBody } = require('../modules/helpers');
 
 // middleware
 router.use(authenticate);
-router.use(verifyUser);
+router.use(sb.verifyUser);
 
 router.get('/', async (req, res) => {
   try {
     // Get foreignkey list
-    const data = await getUserList('UserList', req.user);
+    const data = await sb.getUserList('UserList', req.user);
 
     // Resolve each item in list to its entry in database
-    const mapped = await toItems(data);
+    const mapped = await sb.toItems(data);
     res.status(200).json(mapped);
 
   } catch (error) {

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../modules/token');
-const sb = require('../modules/supabaseServer');
+const sb = require('../modules/supabase');
 const { getItemIDsFromBody } = require('../modules/helpers');
 
 // middleware
