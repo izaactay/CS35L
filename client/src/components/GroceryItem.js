@@ -1,10 +1,9 @@
 import React from 'react';
-import {Grid, Card, CardContent, CardMedia, Typography, IconButton} from '@mui/material';
-import { Favorite } from '@mui/icons-material';
-import { Delete } from '@mui/icons-material';
+import {Card, CardContent, CardMedia, Typography, IconButton} from '@mui/material';
+import { Favorite, Delete } from '@mui/icons-material';
 
 const GroceryItem = ({ item }) => (
-    <Grid item xs={12} sm={4} md={3}>
+    <Button sx={{ width: '25%' }} component={Link} to="/item">
       <Card>
         <CardMedia
           component="img"
@@ -20,7 +19,7 @@ const GroceryItem = ({ item }) => (
           <IconButton color="black"><Delete /></IconButton>
         </CardContent>
       </Card>
-    </Grid>
+    </Button>
   );
 
 export default GroceryItem;
