@@ -1,28 +1,28 @@
 [
-    {
-        "id": 1,
-        "name": "napa cabbage",
-        "shop": "99 Ranch",
-        "curr_price": 10,
-        "img": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDI4Fe7Om45oq4n8ukXGZ5fpFFRATMVPzBh_-UucyfTiMblPag",
-        "query": [
-            "cabbage",
-            "vegetable",
-            "vegetables",
-            "asian"
-        ]
-    },
-    {
-        "id": 2,
-        "name": "round cabbage",
-        "shop": "Ralphs",
-        "curr_price": 10,
-        "img": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDI4Fe7Om45oq4n8ukXGZ5fpFFRATMVPzBh_-UucyfTiMblPag",
-        "query": [
-            "cabbage",
-            "vegetable",
-            "vegetables",
-            "asian"
-        ]
-    }
+  {
+    "id": 1,
+    "name": "napa cabbage",
+    "shop": "99 Ranch",
+    "curr_price": 10,
+    "img": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDI4Fe7Om45oq4n8ukXGZ5fpFFRATMVPzBh_-UucyfTiMblPag",
+    "query": [
+      "cabbage",
+      "vegetable",
+      "vegetables",
+      "asian"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "round cabbage",
+    "shop": "Ralphs",
+    "curr_price": 10,
+    "img": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDI4Fe7Om45oq4n8ukXGZ5fpFFRATMVPzBh_-UucyfTiMblPag",
+    "query": [
+      "cabbage",
+      "vegetable",
+      "vegetables",
+      "asian"
+    ]
+  }
 ]
