@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { AppBar, Box, Toolbar, Typography, IconButton, TextField, Grid, Card, CardContent, CardMedia, Container } from '@mui/material';
 import { Favorite, ShoppingCart, AccountCircle } from '@mui/icons-material';
+
 import GroceryItem from '../components/GroceryItem'
 
 const HomePage = () => {
@@ -18,20 +19,6 @@ const HomePage = () => {
 
   return (
     <div>
-        {/* Navigation Bar*/}
-      <AppBar position="static" sx={{ bgcolor: 'white' }}>
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: 'black' }}>
-            Grocery+
-          </Typography>
-          <TextField label="Search" variant="outlined" size="small" sx={{ mr: 2 }} />
-          <IconButton color="black"><Favorite /></IconButton>
-          <IconButton color="black"><ShoppingCart /></IconButton>
-          <IconButton color="black"><AccountCircle /></IconButton>
-        </Toolbar>
-      </AppBar>
-
-      {/* Welcome Message with Background Photo */}
       <Box
         sx={{
           display: 'flex',
