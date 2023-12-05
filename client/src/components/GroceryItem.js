@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
-import { Favorite, Delete } from '@mui/icons-material';
+import { Favorite, Delete, ShoppingCart } from '@mui/icons-material';
 
-const GroceryItem = ({ item }) => (
+const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = true, onAddToCart, onToggleFavorite, onDelete }) => (
     <Button sx={{ width: '25%' }} component={Link} to="/item">
       <Card sx={{ width: '100%' }}>
         <CardMedia
