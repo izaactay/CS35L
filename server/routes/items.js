@@ -17,9 +17,9 @@ router.get('/:itemID', async (req, res) => {
     return res.status(500).json({ error: 'Error reading Supabase data' });
   }
   else {
-    res.status(200).json({
-      data
-    });
+    res.status(200).json(
+      data[0]
+    );
   }
 });
 
