@@ -19,6 +19,7 @@ function LoginBox(props) {
       if (session) {
         
         localStorage.setItem('supabaseToken', session.access_token);
+        localStorage.setItem('UserId', session.user.id)
 
       }
       
@@ -32,6 +33,7 @@ function LoginBox(props) {
       // Store the access token locally when the session is available
       if (session) {
         localStorage.setItem('supabaseToken', session.access_token);
+        localStorage.setItem('UserId', session.user.id)
         
       }
     });

@@ -9,13 +9,13 @@ const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDele
         <CardMedia
           component="img"
           height="140"
-          image={item.imageUrl}
+          image={item.img}
           alt={item.name}
         />
         <CardContent>
           <Typography variant="h6">{item.name}</Typography>
-          <Typography variant="body1">Price: {item.price}</Typography>
-          <Typography variant="body2">Store: {item.store}</Typography>
+          <Typography variant="body1">Price: {item.curr_price}</Typography>
+          <Typography variant="body2">Store: {item.shop}</Typography>
           <IconButton color="black"><Favorite /></IconButton>
           <IconButton color="black"><Delete /></IconButton>
         </CardContent>
