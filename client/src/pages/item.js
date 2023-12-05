@@ -31,8 +31,8 @@ const item = () => {
                 
             </Container>
         </Box>
-    )
+    );
 
-}
+};
 
 export default item;

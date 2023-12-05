@@ -24,7 +24,7 @@ const NavBar = () => (
                     
                     <IconButton color="black" component={Link} to="/favorites" ><Favorite /></IconButton>
                     <IconButton color="black" component={Link} to="/cart"><ShoppingCart /></IconButton>
-                    <IconButton color="black" component={Link} to="/favorites"><AccountCircle /></IconButton>
+                    <IconButton color="black" component={Link} to="/login"><AccountCircle /></IconButton>
                 </Toolbar>
         </AppBar>
     </div>
