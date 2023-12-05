@@ -10,7 +10,7 @@ import Login from './pages/Login';
 
 const App = () => {
     const [session, setSession] = useState(null);
-    console.log(localStorage.getItem('supabaseToken'));
+    
     return (
         <>
             <NavBar />
@@ -21,7 +21,7 @@ const App = () => {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/login" element={<Login session = {session}
                                                      setSession = {setSession}/>} />
-                <Route path="/item" element={<Item />} />
+                <Route path="/item/:itemId" element={<Item />} />
             </Routes>
         </>
     );

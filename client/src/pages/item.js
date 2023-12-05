@@ -1,38 +1,53 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Container, Card, CardMedia, CardContent} from '@mui/material';
+import { useParams } from 'react-router-dom';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 
-const item = () => {
-    const item = {
-        name: "Banana",
-        store: "Ralphs",
-        price: "$2",
-        imageUrl: "https://media.istockphoto.com/id/162487071/photo/banana-bunch.jpg?s=1024x1024&w=is&k=20&c=hUqk05fjkCBeKSPqIluYj_QWhx9kMRUeAIXRJAzUnOQ=",
-    };
+const Item = () => {
+    
 
+    const { itemId } = useParams();
+    const [item, setItem] = useState();
+    useEffect(() => {
+        const fetchData = async () => {
+            const item = await ( 
+                await fetch(
+                    BASE_URL + "/items/" + itemId
+                )
+                ).json();
+            console.log(item);
+            console.log('hello');
+            setItem(item);
+                
+        };
 
+        fetchData();
+
+    },[]);
+    
     return(
         <Box>
-            <Container sx={{ marginTop: 4, display: 'flex'}}>
+            {item && <Container sx={{ marginTop: 4, display: 'flex'}}>
                 <Card sx={{ width: '40%', flexGrow: 1}}>
                     <CardMedia
                         component="img"
-                        image={item.imageUrl}
+                        image={item.img}
                         alt={item.name}
                         />
                 </Card>
                 <Box  sx={{ marginLeft: 4, flexGrow: 2 }}>
                     <Typography variant="h2">{item.name}</Typography>
-                    <Typography variant="h6">Price: {item.price}</Typography>
-                    <Typography variant="h6">Store: {item.store}</Typography>
+                    <Typography variant="h6">Price: ${item.curr_price}</Typography>
+                    <Typography variant="h6">Store: {item.shop}</Typography>
                 </Box>
                 
-            </Container>
+            </Container>}
         </Box>
     );
 
 };
 
-export default item;
+export default Item;
