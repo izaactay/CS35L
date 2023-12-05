@@ -6,6 +6,7 @@ import Cart from './pages/cart';
 import Item from './pages/item';
 import NavBar from './components/NavBar';
 import Login from './pages/Login';
+import Footer from './components/Footer';
 
 
 const App = () => {
@@ -23,6 +24,8 @@ const App = () => {
                                                      setSession = {setSession}/>} />
                 <Route path="/item/:itemId" element={<Item />} />
             </Routes>
+
+            <Footer />
         </>
     );
 }

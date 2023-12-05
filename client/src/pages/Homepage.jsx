@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Container } from '@mui/material';
+import backgroundPhoto from '../images/background.jpg';
 
 
 import GroceryItem from '../components/GroceryItem'
@@ -27,23 +28,23 @@ const HomePage = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          height: 400, 
-          backgroundImage: 'url("https://cdn.pixabay.com/photo/2022/12/21/12/33/orange-7669963_1280.jpg")',
+          height: 500, 
+          backgroundImage: `url(${backgroundPhoto})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
       >
-        <Typography variant="h4" color="white" gutterBottom>
+        <Typography variant="h4" color="white" sx={{fontFamily: 'Bebas Neue, sans-serif', fontSize: '100px'}}>
           Welcome to Grocery+
         </Typography>
-        <Typography variant="subtitle2" color="black" gutterBottom>
+        <Typography variant="subtitle2" color="white" gutterBottom sx={{fontFamily: 'Raleway, sans-serif', fontSize: '25px'}}>
           Shop Smarter, Not Harder: Make informed choices, save money, and time!
         </Typography>
       </Box>
 
         {/* Display Items Section */}
         <Container sx={{ marginTop: 4 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" sx={{fontFamily: 'Raleway, sans-serif', fontSize: '25px'}}>
           Browse Items
         </Typography>
         <Grid sx={{ marginTop: 4 }} container spacing={3}>
