@@ -7,7 +7,10 @@ const sb = require('../modules/supabase');
 router.get('/:itemID', async (req, res) => {
 
   const itemID = req.params.itemID;
-  const { data, error } = await supabase.from('Items').select().eq('id',itemID);
+  const { data, error } = await sb.client
+    .from('Items')
+    .select()
+    .eq('id',itemID);
   
   if (error) {
     console.error('Error reading Supabase data:', error);
