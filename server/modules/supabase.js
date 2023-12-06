@@ -102,7 +102,7 @@ const findRelation = async (table, itemID, userID) => {
     code: 500,
     error
   });
-  return data[0]; 
+  return data[0];
 };
 
 
@@ -110,16 +110,16 @@ const findRelation = async (table, itemID, userID) => {
 const insertRelation = async (table, itemID, userID) => {
   if (await findRelation(table, itemID, userID) !== undefined) {
     return;
-  } 
+  }
   // relation does not exist
   // Try to find item in items
   if (await findItem(itemID) === undefined) {
     // item not found
-    throw ({ 
+    throw ({
       code: 404,
       error: 'Item not found',
       response: {
-        Error: 'Item not found' 
+        Error: 'Item not found'
       }
     });
   };
@@ -176,13 +176,14 @@ const updateCartQty = async (itemID, userID, qty) => {
   return data;
 };
 
-module.exports = { 
-  client, 
-  verifyUser, 
-  getUserList, 
-  toItemsFavs, 
+module.exports = {
+  client,
+  verifyUser,
+  getUserList,
+  toItemsFavs,
   toItemsCart,
-  insertRelation, 
-  removeRelation, 
-  updateCartQty 
+  insertRelation,
+  removeRelation,
+  updateCartQty,
+  findItem
 };

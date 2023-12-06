@@ -21,7 +21,7 @@ const respondData = async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    await respondData(req, res); 
+    await respondData(req, res);
 
   } catch ({ code, error, response }) {
     console.error(error);

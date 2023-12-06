@@ -50,7 +50,7 @@ router.put('/remove', async (req, res) => {
       await sb.removeRelation('UserFavouriteItems', itemID, req.user);
     };
     await respondData(req, res);
-    
+
   } catch ({ code, error, response }) {
     console.error(error);
     res.status(code).json(response);
