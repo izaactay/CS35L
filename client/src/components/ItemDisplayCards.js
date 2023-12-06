@@ -16,7 +16,7 @@ const ItemDisplayCards = (props) => {
     const supabaseToken = localStorage.getItem('supabaseToken')
     useEffect(() => {
       const fetchData = async () => {
-          const items = await ( 
+          const {items, error} = await ( 
               await fetch(
                 API_URL,
                 {
@@ -30,7 +30,8 @@ const ItemDisplayCards = (props) => {
               ).json();
           console.log(items);
           setItems(items);
-              
+          console.log(error)
+
       };
   
       fetchData();
@@ -41,11 +42,12 @@ const ItemDisplayCards = (props) => {
       <div>
           {/* Display Items Section */}
           
-          <Grid sx={{ marginTop: 4 }} container spacing={3}>
+          {items && <Grid sx={{ marginTop: 4 }} container spacing={3}>
             {items.map(item => (
               <GroceryItem key={item.id} item={item} />
             ))}
-          </Grid>
+
+          </Grid>}
       </div>
   
       
