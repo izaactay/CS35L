@@ -2,8 +2,9 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Container, Card, CardMedia, CardContent, IconButton } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { FavoriteBorder, ShoppingCart } from '@mui/icons-material';
+import { FavoriteBorder, Favorite, ShoppingCart } from '@mui/icons-material';
 import { updateFavorite } from '../components/ItemDisplayCards';
+import { isFavoriteItem } from '../components/GroceryItem';
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
@@ -30,6 +31,8 @@ const Item = () => {
 
     }, []);
 
+    const isFavorite = isFavoriteItem(+itemId);
+
     return (
         <Box>
             {item && <Container sx={{ marginTop: 4, display: 'flex', marginBottom: 4 }}>
@@ -48,10 +51,10 @@ const Item = () => {
                     {(<IconButton
                         onClick={(event) => {
                             event.preventDefault();
-                            updateFavorite(item);
-                        }}
+                            updateFavorite(item);}}
+                            style = {{color: isFavorite ? 'red' : 'inherit'}}
                     >
-                        <FavoriteBorder />
+                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
                     </IconButton>)}
                 </Box>
 

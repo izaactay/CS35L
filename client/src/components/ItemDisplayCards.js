@@ -106,6 +106,9 @@ const ItemDisplayCards = (props) => {
   }, []);
 
   if (items) {
+    if (props.type == "favourites"){
+      localStorage.setItem('userFavorites', JSON.stringify(items));
+    }
     if (props.type != "cart") {
       return (
         <div>
@@ -121,12 +124,13 @@ const ItemDisplayCards = (props) => {
     }
 
     else if (props.type == "cart") {
+      localStorage.setItem('userCart', JSON.stringify(items));
       return (
         <div>
           {/* Display Items Section */}
           {items && <Grid sx={{ marginTop: 4, marginBottom: 4 }} container spacing={3}>
             {items.map(item => (
-              <GroceryItem key={item.id} item={item} />
+              <GroceryItem key={item.id} item={item} showDelete = {true}/>
             ))}
 
           </Grid>}

@@ -1,12 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
-import { FavoriteBorder, Delete, ShoppingCart } from '@mui/icons-material';
+import { FavoriteBorder, Favorite, Delete, ShoppingCart } from '@mui/icons-material';
 import {updateFavorite} from './ItemDisplayCards';
 
+export function isFavoriteItem(itemID){
+  console.log("called is favorite function");
+  const favorites = JSON.parse(localStorage.getItem('userFavorites'));
+  console.log("user favorite items are ");
+  console.log(favorites);
+  if(favorites.some(item => item.id === itemID)){
+    return true;
+    console.log('item id was inside')
+  }
+  return false;
+}
 
-const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => (
 
+const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => {
+
+    const isFavorite = isFavoriteItem(item.id);
+
+return (
     <Button sx={{ width: '25%' }} component={Link} to={`/item/${item.id}`}>
       <Card sx={{ width: '100%', height: '100%' }}>
         <CardMedia
@@ -24,8 +39,9 @@ const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDele
             onClick={(event)=>{
               event.preventDefault();
               updateFavorite(item);}}
+              style = {{color: isFavorite ? 'red' : 'inherit'}}
             >
-              <FavoriteBorder />
+             {isFavorite ? <Favorite /> :  <FavoriteBorder />}
             </IconButton>)}
 
 
@@ -46,6 +62,7 @@ const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDele
         </CardContent>
       </Card>
     </Button>
-  );
+    )
+};
 
 export default GroceryItem;
