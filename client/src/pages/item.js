@@ -30,12 +30,13 @@ const Item = () => {
     
     return(
         <Box>
-            {item && <Container sx={{ marginTop: 4, display: 'flex'}}>
+            {item && <Container sx={{ marginTop: 4, display: 'flex', marginBottom: 4}}>
                 <Card sx={{ width: '40%', flexGrow: 1}}>
                     <CardMedia
                         component="img"
                         image={item.img}
                         alt={item.name}
+                        sx={{ height: '100%', aspectRatio: '1/1'}}
                         />
                 </Card>
                 <Box  sx={{ marginLeft: 4, flexGrow: 2 }}>

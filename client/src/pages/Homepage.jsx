@@ -4,8 +4,6 @@ import backgroundPhoto from '../images/background.jpg';
 import ItemDisplayCards from '../components/ItemDisplayCards';
 
 
-
-
 const HomePage = () => {
   
 

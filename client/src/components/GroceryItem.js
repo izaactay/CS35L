@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
 import { Favorite, Delete, ShoppingCart } from '@mui/icons-material';
 
+
 const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = true, onAddToCart, onToggleFavorite, onDelete }) => (
-    <Button sx={{ width: '25%' }} component={Link} to="/item">
-      <Card sx={{ width: '100%' }}>
+
+    <Button sx={{ width: '25%' }} component={Link} to={`/item/${item.id}`}>
+      <Card sx={{ width: '100%', height: '100%' }}>
         <CardMedia
           component="img"
           height="140"
