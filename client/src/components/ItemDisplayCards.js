@@ -66,48 +66,7 @@ export async function updateFavorite(itemToFav) {
 };
 
 const ItemDisplayCards = (props) => {
-<<<<<<< HEAD
-    const [items, setItems] = useState([]);
-    console.log(props.type);
-    let API_URL;
-    if (props.type == "favourites") {
-      API_URL = BASE_URL + "/userFavouriteItems/";
-    } else if (props.type == "cart"){
-      API_URL = BASE_URL + "/userList";
-    } else if (props.type == "search"){
-      API_URL = BASE_URL + "/items/search/" + props.query;
-    }
-    const supabaseToken = localStorage.getItem('supabaseToken')
-    useEffect(() => {
-      const fetchData = async () => {
-          const response = await ( 
-              await fetch(
-                API_URL,
-                {
-                  method: 'GET',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${supabaseToken}`,
-                  }
-                }
-              )
-              ).json();
 
-          if (!response.error) {
-            console.log(response);
-            setItems(response);
-          } else {
-            console.log('error')
-            console.log(response.error);
-          }
-      };
-  
-      fetchData();
-    }, []);
-  
-    return (
-      <div>
-=======
   const [items, setItems] = useState([]);
   console.log(props.type);
   let API_URL;
@@ -148,7 +107,6 @@ const ItemDisplayCards = (props) => {
     if (props.type == "favourites") {
       return (
         <div>
->>>>>>> fe3b69b (Implemented Add/Remove to Favorites)
           {/* Display Items Section */}
           {items && <Grid sx={{ marginTop: 4, marginBottom: 4 }} container spacing={3}>
             {items.map(item => (
