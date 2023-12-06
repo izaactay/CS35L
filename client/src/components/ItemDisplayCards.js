@@ -16,7 +16,7 @@ const ItemDisplayCards = (props) => {
     const supabaseToken = localStorage.getItem('supabaseToken')
     useEffect(() => {
       const fetchData = async () => {
-          const {items, error} = await ( 
+          const response = await ( 
               await fetch(
                 API_URL,
                 {
@@ -28,10 +28,14 @@ const ItemDisplayCards = (props) => {
                 }
               )
               ).json();
-          console.log(items);
-          setItems(items);
-          console.log(error)
-
+              
+          if (!response.error) {
+            console.log(response);
+            setItems(response);
+          } else {
+            console.log('error')
+            console.log(response.error);
+          }
       };
   
       fetchData();
