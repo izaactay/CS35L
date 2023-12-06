@@ -17,8 +17,7 @@ router.get('/search/:query?', async (req, res) => {
   if (error) {
     console.error('Error searching Supabase data:', error);
     return res.status(501).json({ error: 'Error searching Supabase data' });
-  }
-  else {
+  } else {
     res.status(200).json(data);
   };
 });
@@ -52,7 +51,7 @@ router.get('/:itemID?', async (req, res) => {
   // Item does not exist
   res.status(404).json({
     Error: 'Item does not exist'
-  })
+  });
 });
 
 
@@ -60,8 +59,8 @@ router.get('/:itemID?', async (req, res) => {
 router.all('*', (req, res) => {
   res.status(404).json({
     Error: 'Not Found'
-  })
-})
+  });
+});
 
 
 module.exports = router;
