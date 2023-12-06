@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sb = require('../modules/supabase');
+const { isPosInt } = require('../modules/helpers')
 
 
 // Searches for items in db, returns a list of item objects
@@ -17,42 +18,38 @@ router.get('/search/:query?', async (req, res) => {
   if (error) {
     console.error('Error searching Supabase data:', error);
     return res.status(501).json({ error: 'Error searching Supabase data' });
-  }
-  else {
+  } else {
     res.status(200).json(data);
   };
 });
 
 // Gets single item from db, returns a single item object
 router.get('/:itemID?', async (req, res) => {
-  const itemID = req.params.itemID;
+  try {
+    const itemID = req.params.itemID;
 
-  // Test if the incoming parameter is a number
-  if (/^[0-9]*$/.test(itemID) === false) {
-    return res.status(400).json({
-      Error: 'Bad request, item ID must be a number'
+    // Test if the incoming parameter is a number
+    if (isPosInt(itemID) === false) {
+      return res.status(400).json({
+        Error: 'Bad request, item ID must be a number'
+      });
+    };
+
+    // Get item from database
+    const data = await sb.findItem(itemID);
+
+    // Item exists in database
+    if (data) return res.status(200).json(data);
+
+    // Item does not exist
+    res.status(404).json({
+      Error: 'Item does not exist'
     });
-  };
 
-  // Get item from database
-  const { data, error } = await sb.client
-    .from('Items')
-    .select()
-    .eq('id',itemID);
-  if (error) {
-    console.error('Error reading Supabase data:', error);
-    return res.status(500).json({ error: 'Error reading Supabase data' });
+  } catch ({ code, error, response }) {
+    console.error(error);
+    res.status(code).json(response);
   };
-
-  // Item exists in database
-  if (data.length !== 0) {
-    return res.status(200).json(data[0]);
-  };
-
-  // Item does not exist
-  res.status(404).json({
-    Error: 'Item does not exist'
-  })
 });
 
 
@@ -60,8 +57,8 @@ router.get('/:itemID?', async (req, res) => {
 router.all('*', (req, res) => {
   res.status(404).json({
     Error: 'Not Found'
-  })
-})
+  });
+});
 
 
 module.exports = router;

@@ -1,7 +1,5 @@
 // helpers.js
-// TODO
-const getItemIDsFromBody = (body) => {
-  return body;
-};
 
-module.exports = { getItemIDsFromBody };
+const isPosInt = num => /^[0-9]*$/.test(num);
+
+module.exports = { isPosInt };
