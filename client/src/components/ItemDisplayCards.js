@@ -18,30 +18,6 @@ const ItemDisplayCards = (props) => {
     const supabaseToken = localStorage.getItem('supabaseToken')
     useEffect(() => {
       const fetchData = async () => {
-<<<<<<< HEAD
-        const response = await ( 
-          await fetch(
-            API_URL,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${supabaseToken}`,
-              }
-            }
-          )
-          ).json();
-          
-      if (!response.error) {
-        console.log(response);
-        setItems(response);
-      } else {
-        console.log('error')
-        console.log(response.error);
-      }
-  };
-    
-=======
           const response = await ( 
               await fetch(
                 API_URL,
@@ -64,7 +40,6 @@ const ItemDisplayCards = (props) => {
           }
       };
   
->>>>>>> b37f702 (Implemented Search)
       fetchData();
     }, []);
   
