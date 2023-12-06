@@ -1,13 +1,42 @@
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography, IconButton, TextField, Button, InputAdornment} from '@mui/material';
 import { Favorite, ShoppingCart, AccountCircle } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import logo from '../images/grocery_logo.png';
 import * as Icons from '@mui/icons-material/';
+import { Navigate } from "react-router-dom";
 
+const SearchBar = ({setSearchQuery}) => {
+    return (
+        <form onSubmit={(i) => {
+            console.log(i.target[0].value);
+            setSearchQuery(i.target[0].value);
+        }}>
+        <TextField label="Search Items" variant="outlined" size="small" sx={{mr: 2, width: '250px'}}
+                         
+                        InputProps={{endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton type="submit">
+                                    <Icons.Search/>
+                                </IconButton>
+                            </InputAdornment>
+                        )}}
+                    />
+    </form>
+    )
+    
+};
 
-const NavBar = () => (
+const NavBar = () => {
+    const [searchQuery, setSearchQuery] = useState("");
+    var searchURL;
+    if (searchQuery) {
+        searchURL = "/search/" + searchQuery;
+    }
+    return(
     <div>
+        {searchQuery && <Navigate to={searchURL}/>}
         <AppBar position="static" sx={{ bgcolor: 'white' }}>
                 <Toolbar>
                     <Box sx={{ flexGrow: 1, color: 'black' }}>
@@ -17,14 +46,8 @@ const NavBar = () => (
 
                     </Box>
 
-                
-                    <TextField label="Search" variant="outlined" size="small" sx={{mr: 2, width: '250px'}} 
-                        InputProps={{startAdornment: (
-                            <InputAdornment position="start">
-                                <Icons.Search/>
-                            </InputAdornment>
-                        )}}
-                    />
+                    <SearchBar setSearchQuery={setSearchQuery}/>
+                    
                     
                     <Button
                         sx={{fontFamily: 'Raleway, sans-serif', fontSize: '16px'}}
@@ -59,6 +82,6 @@ const NavBar = () => (
                 </Toolbar>
         </AppBar>
     </div>
-);   
+)};   
 
 export default NavBar;

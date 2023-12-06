@@ -9,13 +9,16 @@ const ItemDisplayCards = (props) => {
     console.log(props.type);
     let API_URL;
     if (props.type == "favourites") {
-      API_URL = BASE_URL + "/userFavouriteItems/"
+      API_URL = BASE_URL + "/userFavouriteItems/";
     } else if (props.type == "cart"){
-      API_URL = BASE_URL + "/userList"
-    };
+      API_URL = BASE_URL + "/userList";
+    } else if (props.type == "search"){
+      API_URL = BASE_URL + "/items/search/" + props.query;
+    }
     const supabaseToken = localStorage.getItem('supabaseToken')
     useEffect(() => {
       const fetchData = async () => {
+<<<<<<< HEAD
         const response = await ( 
           await fetch(
             API_URL,
@@ -38,6 +41,30 @@ const ItemDisplayCards = (props) => {
       }
   };
     
+=======
+          const response = await ( 
+              await fetch(
+                API_URL,
+                {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${supabaseToken}`,
+                  }
+                }
+              )
+              ).json();
+
+          if (!response.error) {
+            console.log(response);
+            setItems(response);
+          } else {
+            console.log('error')
+            console.log(response.error);
+          }
+      };
+  
+>>>>>>> b37f702 (Implemented Search)
       fetchData();
     }, []);
   
