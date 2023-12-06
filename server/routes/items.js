@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sb = require('../modules/supabase');
+const { isPosInt } = require('../modules/helpers')
 
 
 // Searches for items in db, returns a list of item objects
@@ -27,7 +28,7 @@ router.get('/:itemID?', async (req, res) => {
   const itemID = req.params.itemID;
 
   // Test if the incoming parameter is a number
-  if (/^[0-9]*$/.test(itemID) === false) {
+  if (isPosInt(itemID) === false) {
     return res.status(400).json({
       Error: 'Bad request, item ID must be a number'
     });

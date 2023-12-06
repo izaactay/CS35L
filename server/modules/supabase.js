@@ -46,7 +46,10 @@ const getUserList = async (table, userID) => {
     .select()
     .eq('user_id', userID);
 
-  if (error) throw error;
+  if (error) throw ({
+    code: 500,
+    error
+  });
   return data;
 };
 
@@ -58,7 +61,10 @@ const findItem = async (itemID) => {
     .select('id, name, shop, curr_price, price_type, img, query')
     .eq('id', itemID);
 
-  if (error) throw error;
+  if (error) throw ({
+    code: 500,
+    error
+  });
   return data[0]; // returns undefined if does not exist
 };
 
@@ -92,7 +98,10 @@ const findRelation = async (table, itemID, userID) => {
     .eq('user_id', userID)
     .eq('item_id', itemID);
 
-  if (error) throw error;
+  if (error) throw ({
+    code: 500,
+    error
+  });
   return data[0]; 
 };
 
@@ -106,7 +115,13 @@ const insertRelation = async (table, itemID, userID) => {
   // Try to find item in items
   if (await findItem(itemID) === undefined) {
     // item not found
-    throw 'Error inserting relation: Item not found';
+    throw ({ 
+      code: 404,
+      error: 'Item not found',
+      response: {
+        Error: 'Item not found' 
+      }
+    });
   };
 
   const { data, error } = await client
@@ -116,7 +131,10 @@ const insertRelation = async (table, itemID, userID) => {
       user_id: userID,
     });
 
-  if (error) throw error;
+  if (error) throw ({
+    code: 500,
+    error
+  });
   return data;
 };
 
@@ -128,13 +146,16 @@ const removeRelation = async (table, itemID, userID) => {
     .eq('user_id', userID)
     .eq('item_id', itemID);
 
-  if (error) throw error;
+  if (error) throw ({
+    code: 500,
+    error
+  });
 };
 
 // Update item qty in cart for a single item
 const updateCartQty = async (itemID, userID, qty) => {
   // If qty is 0 we want to remove the relation
-  if (qty === 0) {
+  if (qty === 0 || qty === '0') {
     return await removeRelation('UserList', itemID, userID);
   };
 
@@ -148,7 +169,10 @@ const updateCartQty = async (itemID, userID, qty) => {
     .eq('user_id', userID)
     .eq('item_id', itemID);
 
-  if (error) throw error;
+  if (error) throw ({
+    code: 500,
+    error
+  });
   return data;
 };
 
