@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
-import { Favorite, Delete, ShoppingCart } from '@mui/icons-material';
+import { FavoriteBorder, Delete, ShoppingCart } from '@mui/icons-material';
+import {updateFavorite} from './ItemDisplayCards';
 
 
-const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = true, onAddToCart, onToggleFavorite, onDelete }) => (
+const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => (
 
     <Button sx={{ width: '25%' }} component={Link} to={`/item/${item.id}`}>
       <Card sx={{ width: '100%', height: '100%' }}>
@@ -18,8 +19,30 @@ const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDele
           <Typography variant="h6">{item.name}</Typography>
           <Typography variant="body1">Price: {item.curr_price}</Typography>
           <Typography variant="body2">Store: {item.shop}</Typography>
-          <IconButton color="black"><Favorite /></IconButton>
-          <IconButton color="black"><Delete /></IconButton>
+          {showFavorite && 
+          (<IconButton
+            onClick={(event)=>{
+              event.preventDefault();
+              updateFavorite(item);}}
+            >
+              <FavoriteBorder />
+            </IconButton>)}
+
+
+          {showDelete && <IconButton color="black"><Delete /></IconButton>}
+
+
+          {showAddToCart && 
+          (<Button 
+            sx={{ml: 1}}
+            variant="outlined"
+            startIcon={<ShoppingCart />}
+            //onClick function to be implemented
+            >
+              Add to Cart
+            </Button>
+          )}
+
         </CardContent>
       </Card>
     </Button>
