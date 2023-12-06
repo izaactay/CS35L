@@ -9,6 +9,7 @@ import Cart from './pages/cart';
 import Item from './pages/item';
 import Login from './pages/Login';
 import Search from "./pages/Search";
+import UpdateAuth from "./components/Auth";
 
 
 
@@ -18,7 +19,8 @@ const App = () => {
     return (
         <>
             <NavBar />
-            
+            <UpdateAuth session = {session}
+                        setSession = {setSession}/>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<Login session = {session}

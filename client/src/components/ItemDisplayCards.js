@@ -74,6 +74,8 @@ const ItemDisplayCards = (props) => {
     API_URL = BASE_URL + "/userFavouriteItems/"
   } else if (props.type == "cart") {
     API_URL = BASE_URL + "/userList"
+  } else if (props.type == "search"){
+    API_URL = BASE_URL + "/items/search/" + props.query;
   };
   const supabaseToken = localStorage.getItem('supabaseToken')
   useEffect(() => {
@@ -104,7 +106,7 @@ const ItemDisplayCards = (props) => {
   }, []);
 
   if (items) {
-    if (props.type == "favourites") {
+    if (props.type != "cart") {
       return (
         <div>
           {/* Display Items Section */}

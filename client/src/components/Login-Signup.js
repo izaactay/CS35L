@@ -6,6 +6,7 @@ import {Typography, Container} from '@mui/material';
 
 
 
+
 //import "./Login-Signup.css";
 
 function LoginBox(props) {
@@ -50,7 +51,9 @@ function LoginBox(props) {
         <Container sx={{ marginTop: 4 }}>
         
         <Typography>Hello {props.session.user.user_metadata.full_name}, Welcome Back!</Typography>
-          <Button block onClick={() => props.supabase.auth.signOut()}>
+          <Button block onClick={() =>{
+              localStorage.removeItem('supabaseToken');
+              props.supabase.auth.signOut()}}>
             Sign out
           </Button>
           </Container>
