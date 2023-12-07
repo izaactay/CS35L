@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../modules/token');
 const sb = require('../modules/supabase');
-const { isPosInt } = require('../modules/helpers')
+const { isPosInt } = require('../modules/helpers');
 
 // middleware
 router.use(authenticate);
