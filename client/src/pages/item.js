@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Container, Card, CardMedia, CardContent, IconButton } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { FavoriteBorder, Favorite, ShoppingCart } from '@mui/icons-material';
-import { updateFavorite } from '../components/ItemDisplayCards';
+import {updateFavorite} from '../modules/apiHelpers';
 import { isFavoriteItem } from '../components/GroceryItem';
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 

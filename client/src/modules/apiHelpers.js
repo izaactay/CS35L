@@ -52,7 +52,7 @@ export async function updateFavorite(itemToFav) {
         console.log(action === 'add' ? 'Added to favorites' : 'Removed from favorites');
         
         if (putResponse) {
-            await localStorage.setItem('userFavorites', JSON.stringify(putResponse));
+            localStorage.setItem('userFavorites', JSON.stringify(putResponse));
         }
             
             
@@ -65,5 +65,93 @@ export async function updateFavorite(itemToFav) {
     
 
     }
+    
+  };
+  export async function addToCart(itemToCart) {
+
+    console.log("called add to cart function");
+    const supabaseToken = localStorage.getItem('supabaseToken');
+
+    try {
+        
+        const putResponse = await (
+            await fetch(
+                `${BASE_URL}/userList/add`,
+                {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${supabaseToken}`,
+                },
+                body: JSON.stringify([itemToCart.id])
+                }
+            )
+            ).json();
+    
+        console.log("putResponse status code: ", putResponse);
+        //console.log(action === 'add' ? 'Added to favorites' : 'Removed from favorites');
+        
+        if (putResponse) {
+            localStorage.setItem('userCart', JSON.stringify(putResponse));
+        }
+
+    } catch(e) {
+        console.error('Error adding to cart:', e);
+    } 
+    
+
+    
+  };
+
+  export async function updateCart(itemToCart, qty) {
+
+    console.log("called update cart function");
+  
+    const supabaseToken = localStorage.getItem('supabaseToken');
+    var actionURL, method, body;
+    if (qty === 0) {
+        actionURL = `${BASE_URL}/userList/remove`;
+        method = 'PUT';
+        body = JSON.stringify([itemToCart.id])
+    } else {
+        actionURL = `${BASE_URL}/userList/`;
+        method = 'POST';
+        body = JSON.stringify([{id:itemToCart.id, qty:qty}])
+    }
+    console.log(actionURL)
+
+    
+    try {
+        
+        const putResponse = await (
+            await fetch(
+                actionURL,
+                {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${supabaseToken}`,
+                },
+                body: body
+                }
+            )
+            ).json();
+    
+        console.log("putResponse status code: ", putResponse);
+        //console.log(action === 'add' ? 'Added to favorites' : 'Removed from favorites');
+        
+        if (putResponse) {
+            localStorage.setItem('userCart', JSON.stringify(putResponse));
+        }
+            
+            
+        
+        
+        
+    } catch(e) {
+        console.error('Error updating cart:', e);
+    } 
+    
+
     
   };

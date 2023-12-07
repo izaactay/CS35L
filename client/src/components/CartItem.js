@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isRouteErrorResponse, Link } from 'react-router-dom';
 import {Box, Card, CardContent, CardMedia, Typography, Grid, IconButton, Button, TextField, } from '@mui/material';
 import { FavoriteBorder, Favorite, Delete, ShoppingCart, Add, Remove } from '@mui/icons-material';
-import {updateFavorite} from '../modules/apiHelpers';
+import {updateFavorite, updateCart} from '../modules/apiHelpers';
 
 export function isFavoriteItem(itemID){
   console.log("called is favorite function");
@@ -16,8 +16,9 @@ export function isFavoriteItem(itemID){
 }
 
 
-const CartItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => {
+const CartItem = ({ item, itemQty, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => {
   const [favorite, setFavorite] = useState(false);
+  const [qty, setQty] = useState(itemQty);
   
   useEffect(() => {
       setFavorite(isFavoriteItem(item.id)); 
@@ -29,11 +30,23 @@ const CartItem = ({ item, showAddToCart = false,showFavorite = true, showDelete 
     setFavorite(!favorite);
   }
   
+  const handleAddClick = (event) => {
+    event.preventDefault();
+    updateCart(item,qty+1);
+    setQty(qty+1);
+  }
+
+  const handleRemClick = (event) => {
+    event.preventDefault();
+    updateCart(item,qty-1);
+    setQty(qty-1);
+  }
+
     
 
 return (
-    
-    <Card sx={{ display: 'flex' }} elevation={0}>
+    <div>
+    {(qty ? qty : null) && <Card sx={{ display: 'flex' }} elevation={0}>
         <Grid container direction="row">
         <Box sx={{ width: 151,
                       height: 151 }}
@@ -71,32 +84,22 @@ return (
             <Box sx={{ display: 'flex', flexDirection: 'row' }} display="flex"
                         justifyContent="center"
                         alignItems="center">
-                    <IconButton>
-                        <Remove />
-                        
+                    <IconButton onClick={handleRemClick}>
+                        { (qty-1) ? <Remove /> : <Delete />}
                     </IconButton>
                     <Box>
-                        <Typography>{item.qty}</Typography>
+                        <Typography>{ qty ? qty : null}</Typography>
                     </Box>
-                    <IconButton>
+                    <IconButton onClick={handleAddClick}>
                         <Add />
                     </IconButton>
-                    {/* <Button 
-                    sx={{ml: 1}}
-                    variant="outlined"
-                    startIcon={<ShoppingCart />}
-                    //onClick function to be implemented
-                    >
-                        Add to Cart
-                    </Button> */}
                     
 
-                
             </Box>
         
         </Grid>
-    </Card>
-    
+    </Card>}
+    </div>
     )
 };
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
 import { FavoriteBorder, Favorite, Delete, ShoppingCart } from '@mui/icons-material';
-import {updateFavorite} from './ItemDisplayCards';
+import {updateFavorite, addToCart} from '../modules/apiHelpers';
 
 export function isFavoriteItem(itemID){
   console.log("called is favorite function");
@@ -11,15 +11,28 @@ export function isFavoriteItem(itemID){
   console.log(favorites);
   if(favorites.some(item => item.id === itemID)){
     return true;
-    console.log('item id was inside')
   }
   return false;
 }
 
 
-const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => {
+const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDelete = false}) => {
+  const [favorite, setFavorite] = useState(false);
+  
+  useEffect(() => {
+      setFavorite(isFavoriteItem(item.id)); 
+  }, []);
 
-    const isFavorite = isFavoriteItem(item.id);
+  const handleFavClick = (event) => {
+    event.preventDefault();
+    updateFavorite(item);
+    setFavorite(!favorite);
+  }
+  
+  const handleCartClick = (event) => {
+    event.preventDefault();
+    addToCart(item);
+  }
 
 return (
     <Button sx={{ width: '25%' }} component={Link} to={`/item/${item.id}`}>
@@ -36,12 +49,10 @@ return (
           <Typography variant="body2">Store: {item.shop}</Typography>
           {showFavorite && 
           (<IconButton
-            onClick={(event)=>{
-              event.preventDefault();
-              updateFavorite(item);}}
-              style = {{color: isFavorite ? 'red' : 'inherit'}}
+            onClick={handleFavClick}
+              style = {{color: favorite ? 'red' : 'inherit'}}
             >
-             {isFavorite ? <Favorite /> :  <FavoriteBorder />}
+             {favorite ? <Favorite /> :  <FavoriteBorder />}
             </IconButton>)}
 
 
@@ -53,7 +64,7 @@ return (
             sx={{ml: 1}}
             variant="outlined"
             startIcon={<ShoppingCart />}
-            //onClick function to be implemented
+            onClick={handleCartClick}
             >
               Add to Cart
             </Button>
