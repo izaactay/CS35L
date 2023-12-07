@@ -3,13 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import PrivateRoutes from "./components/PrivateRoutes";
+import UpdateAuth from "./components/Auth";
 import HomePage from './pages/Homepage';
 import Favorites from './pages/Favorites';
-import Cart from './pages/cart';
-import Item from './pages/item';
+import Cart from './pages/Cart';
+import Item from './pages/Item';
 import Login from './pages/Login';
 import Search from "./pages/Search";
-import UpdateAuth from "./components/Auth";
+import NotFound from "./pages/Error";
+
 
 
 
@@ -22,6 +24,7 @@ const App = () => {
             <UpdateAuth session = {session}
                         setSession = {setSession}/>
             <Routes>
+                <Route path='*' element={<NotFound />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<Login session = {session}
                                                      setSession = {setSession}/>} />

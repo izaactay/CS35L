@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { FavoriteBorder, Favorite, ShoppingCart } from '@mui/icons-material';
 import {updateFavorite} from '../modules/apiHelpers';
 import { isFavoriteItem } from '../components/GroceryItem';
+import { Navigate, Outlet } from 'react-router-dom'
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
@@ -15,19 +16,27 @@ const Item = () => {
     const { itemId } = useParams();
     const [item, setItem] = useState();
     useEffect(() => {
-        const fetchData = async () => {
-            const item = await (
-                await fetch(
-                    BASE_URL + "/items/" + itemId
-                )
-            ).json();
-            console.log(item);
-            console.log('hello');
-            setItem(item);
+        try{
+            const fetchData = async () => {
+                const item = await (
+                    await fetch(
+                        BASE_URL + "/items/" + itemId
+                    )
+                ).json();
+                console.log(item);
+                console.log('hello');
+                setItem(item);
+    
+            };
+    
+            fetchData();
 
-        };
-
-        fetchData();
+        } catch (e) {
+            return (
+               <Navigate to='/'/>
+              )
+        }
+        
 
     }, []);
 
