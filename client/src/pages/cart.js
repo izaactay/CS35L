@@ -76,8 +76,8 @@ const Cart= () => {
     <div>
         {/* Display Items Section */}
         <Container sx={{ marginTop: 4 }}>
-        <Typography variant="h5" gutterBottom>
-          Cart
+        <Typography sx={{fontFamily: 'Raleway, sans-serif', fontSize: '30px'}}>
+          Your Cart
         </Typography>
         <DisplayCart />
       </Container>

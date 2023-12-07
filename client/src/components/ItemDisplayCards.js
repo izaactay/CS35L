@@ -66,8 +66,16 @@ const ItemDisplayCards = (props) => {
           {items.map(item => (
             <GroceryItem key={item.id} item={item} showAddToCart={true} />
           ))}
-        {items.length ? null : props.type ==="favourites" ? <Typography>You have nothing saved in favorites!</Typography>:<Typography>No items matched your search </Typography>  }
+          
+        
         </Grid>}
+        <Box sx={{ display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 500 }}>
+              {items.length ? null : props.type ==="favourites" ? <Typography sx={{fontFamily: 'Raleway, sans-serif', fontSize: '30px'}}>You have nothing saved in favorites!</Typography>:<Typography sx={{fontFamily: 'Raleway, sans-serif', fontSize: '30px'}}>No items matched your search </Typography>  } 
+          </Box>
         
       </div>
     );

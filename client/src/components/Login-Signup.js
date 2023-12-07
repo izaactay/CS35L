@@ -109,7 +109,7 @@ function LoginBox(props) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 500,
+        height: '100vh',
         backgroundImage: `url(${backgroundPhoto})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'

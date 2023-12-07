@@ -57,7 +57,7 @@ return (
             
             <CardContent>
                 <Typography variant="h6">{item.name}</Typography>
-                <Typography variant="body1">Price: {item.curr_price}</Typography>
+                <Typography variant="body1">Price: ${item.curr_price}</Typography>
                 <Typography variant="body2">Store: {item.shop}</Typography>
                 {showFavorite && 
                 (<IconButton
