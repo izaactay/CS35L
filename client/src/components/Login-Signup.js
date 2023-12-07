@@ -53,6 +53,8 @@ function LoginBox(props) {
         <Typography>Hello {props.session.user.user_metadata.full_name}, Welcome Back!</Typography>
           <Button block onClick={() =>{
               localStorage.removeItem('supabaseToken');
+              localStorage.removeItem('userFavorites');
+              localStorage.removeItem('userCart');
               props.supabase.auth.signOut()}}>
             Sign out
           </Button>

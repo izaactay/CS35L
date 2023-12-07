@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
 import { FavoriteBorder, Favorite, Delete, ShoppingCart } from '@mui/icons-material';
 import {updateFavorite, addToCart} from '../modules/apiHelpers';
@@ -9,10 +9,16 @@ export function isFavoriteItem(itemID){
   const favorites = JSON.parse(localStorage.getItem('userFavorites'));
   console.log("user favorite items are ");
   console.log(favorites);
-  if(favorites.some(item => item.id === itemID)){
-    return true;
-  }
-  return false;
+  try{
+    if(favorites.some(item => item.id === itemID)){
+      return true;
+    }
+    return false;
+   } catch (e) {
+     console.error(e);
+   }
+
+  
 }
 
 
@@ -24,14 +30,23 @@ const GroceryItem = ({ item, showAddToCart = false,showFavorite = true, showDele
   }, []);
 
   const handleFavClick = (event) => {
-    event.preventDefault();
-    updateFavorite(item);
-    setFavorite(!favorite);
+    if (localStorage.getItem('supabaseToken')) {
+      event.preventDefault();
+      updateFavorite(item);
+      setFavorite(!favorite);
+    } else{
+      return (<Navigate to='/login'/>)
+    }
+    
   }
   
   const handleCartClick = (event) => {
-    event.preventDefault();
-    addToCart(item);
+    if (localStorage.getItem('supabaseToken')) {
+      event.preventDefault();
+      addToCart(item);
+    } else{
+      return (<Navigate to='/login'/>)
+    }
   }
 
 return (
