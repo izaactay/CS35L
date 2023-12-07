@@ -22,7 +22,8 @@ const App = () => {
             <UpdateAuth session = {session}
                         setSession = {setSession}/>
             <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<Login session = {session}
+                                                     setSession = {setSession}/>} />
                 <Route path="/login" element={<Login session = {session}
                                                      setSession = {setSession}/>} />
                 <Route element={<PrivateRoutes />} >                                     
