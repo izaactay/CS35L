@@ -55,7 +55,7 @@ const Item = () => {
                 </Card>
                 <Box sx={{ marginLeft: 4, flexGrow: 2 }}>
                     <Typography variant="h2">{item.name}</Typography>
-                    <Typography variant="h6">Price: ${item.curr_price}</Typography>
+                    <Typography variant="h6" sx={{fontSize: '20px'}}>Price: ${item.curr_price}</Typography>
                     <Typography variant="h6">Store: {item.shop}</Typography>
                     {(<IconButton
                         onClick={(event) => {

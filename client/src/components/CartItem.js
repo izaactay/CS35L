@@ -3,17 +3,8 @@ import { isRouteErrorResponse, Link } from 'react-router-dom';
 import {Box, Card, CardContent, CardMedia, Typography, Grid, IconButton, Button, TextField, } from '@mui/material';
 import { FavoriteBorder, Favorite, Delete, ShoppingCart, Add, Remove } from '@mui/icons-material';
 import {updateFavorite, updateCart} from '../modules/apiHelpers';
+import {isFavoriteItem} from './GroceryItem';
 
-export function isFavoriteItem(itemID){
-  console.log("called is favorite function");
-  const favorites = JSON.parse(localStorage.getItem('userFavorites'));
-  console.log("user favorite items are ");
-  console.log(favorites);
-  if(favorites.some(item => item.id === itemID)){
-    return true;
-  }
-  return false;
-}
 
 
 const CartItem = ({ item, itemQty, showAddToCart = false,showFavorite = true, showDelete = false, onAddToCart, onToggleFavorite, onDelete }) => {

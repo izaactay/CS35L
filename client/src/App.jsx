@@ -7,7 +7,7 @@ import UpdateAuth from "./components/Auth";
 import HomePage from './pages/Homepage';
 import Favorites from './pages/Favorites';
 import Cart from './pages/Cart';
-import Item from './pages/Item';
+import Item from './pages/item';
 import Login from './pages/Login';
 import Search from "./pages/Search";
 import NotFound from "./pages/Error";
@@ -24,8 +24,10 @@ const App = () => {
             <UpdateAuth session = {session}
                         setSession = {setSession}/>
             <Routes>
+
                 <Route path='*' element={<NotFound />} />
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<Login session = {session}
+                                                     setSession = {setSession}/>} />
                 <Route path="/login" element={<Login session = {session}
                                                      setSession = {setSession}/>} />
                 <Route element={<PrivateRoutes />} >                                     

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import {Card, CardContent, CardMedia, Typography, IconButton, Button, } from '@mui/material';
+import {Card, CardContent, CardMedia, Typography, IconButton, Button, Grid} from '@mui/material';
 import { FavoriteBorder, Favorite, Delete, ShoppingCart } from '@mui/icons-material';
 import {updateFavorite, addToCart} from '../modules/apiHelpers';
 
@@ -58,10 +58,15 @@ return (
           image={item.img}
           alt={item.name}
         />
-        <CardContent>
-          <Typography variant="h6">{item.name}</Typography>
-          <Typography variant="body1">Price: {item.curr_price}</Typography>
-          <Typography variant="body2">Store: {item.shop}</Typography>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+
+          <Grid>
+            <Typography variant="h6">{item.name}</Typography>
+            <Typography variant="body1">Price: {item.curr_price}</Typography>
+            <Typography variant="body2">Store: {item.shop}</Typography>
+          </Grid>
+          
+          <Grid justifyContent="flex-end">
           {showFavorite && 
           (<IconButton
             onClick={handleFavClick}
@@ -84,6 +89,7 @@ return (
               Add to Cart
             </Button>
           )}
+          </Grid>
 
         </CardContent>
       </Card>

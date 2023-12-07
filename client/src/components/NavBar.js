@@ -37,7 +37,7 @@ const NavBar = () => {
     return(
     <div>
         {searchQuery && <Navigate to={searchURL}/>}
-        <AppBar position="static" sx={{ bgcolor: 'white' }}>
+        <AppBar position ='static' sx={{bgcolor: 'white' }}>
                 <Toolbar>
                     <Box sx={{ flexGrow: 1, color: 'black' }}>
                         <Button  component={Link} to="/">

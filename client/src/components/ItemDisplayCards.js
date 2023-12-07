@@ -66,7 +66,7 @@ const ItemDisplayCards = (props) => {
           {items.map(item => (
             <GroceryItem key={item.id} item={item} showAddToCart={true} />
           ))}
-        {items.length ? null : <Typography>You have nothing saved in favorites!</Typography>  }
+        {items.length ? null : props.type ==="favourites" ? <Typography>You have nothing saved in favorites!</Typography>:<Typography>No items matched your search </Typography>  }
         </Grid>}
         
       </div>
