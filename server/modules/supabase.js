@@ -2,12 +2,12 @@
 // require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const SUPABASE_SERVICE_KEY = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
 
 // Create a single supabase client for interacting with your database
 const client = createClient(
   SUPABASE_URL,
-  SUPABASE_ANON_KEY,
+  SUPABASE_SERVICE_KEY,
 );
 
 // User verification middleware
