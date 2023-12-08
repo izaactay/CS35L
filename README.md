@@ -1,7 +1,44 @@
+# Grocery+ 
+
+Target, Trader Joes, Ralphs, Whole foods… In Westwood alone, there are a multitude of grocery shops where you can do your shopping from. But as cash strapped college students, we want to know which grocery store is offering the best price for the items we want to buy. Currently, this would require either physically going down to every super market, or individually checking the website of each grocery store, both of which is inconvenient and wastes a lot of time, especially if you want to buy many items. 
+
+Discover Grocery+, your all-in-one shopping companion! Sign up, log in, and start saving on your grocery bill with ease. Search and compare prices for your favorite items across multiple stores, create a personalized favorites list and effortlessly manage your shopping cart. With data from popular retailers like Trader Joe's, Whole Foods, and Target, Grocery+ ensures you always get the best deals. Shopping smarter has never been this convenient. 
+
+Overall, our full-stack web application as part of the CS35L project aims to simplify and enhance the grocery shopping experience, helping users save time and money by comparing prices across multiple stores.  
+
+# Features 
+## Signup/Login + Homepage
+<img width="454" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/d58fd9bc-5cb1-4e18-9127-42bc89064496">
+
+- Uploading data from client to backend
+- Display dynamic data
+- Authentication by Supabase
+
+## Search Result Page
+<img width="401" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/a409eff3-a627-4a66-8e48-1f92de6cb4ef">
+
+- Search through server-side data
+
+## Detailed Item View
+<img width="409" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/01114711-af3b-4bef-9c76-c9ec551be187">
+
+## Comparing Prices 
+<img width="367" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/cee481ce-f961-4852-ac34-6f34b8176f5a">
+
+## Shopping Cart Page
+<img width="409" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/bd9ef8a5-ce78-486f-ab41-7e61a6c12d32">
+
+- Add Items to Cart
+
+## Favorites Page
+<img width="376" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/31c140c7-6d7b-4c70-8c2b-8d914ecae29d">
+
+- Add Items to Favorites
+
+## Logout Page
+<img width="422" alt="image" src="https://github.com/izaactay/CS35L/assets/9492646/99a54d9a-ea87-43e0-83e0-c03bb8c83795">
+
 # Project Setup
-
-This project aims to simplify and enhance the grocery shopping experience, helping users save time and money by comparing prices across multiple stores.
-
 This guide will walk you through setting up the project on your local machine.
 
 ## Prerequisites
